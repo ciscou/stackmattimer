@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">StackMatTimer</string>
+<string name="delete">Eliminar</string>
+<string name="yes">Sí</string>
+<string name="no">No</string>
+<string name="really_delete">¿Estás seguro de que quieres eliminar este tiempo?</string>
+<string name="end_session">Finalizar sesión actual</string>
+<string name="really_end_session">¿Estás seguro de que quieres finalizar la sesión actual?</string>
+<string name="facebook_error">Ups, ha habido un error. Por favor, inténtalo de nuevo.</string>
+<string name="facebook_sharing">Compartiendo</string>
+<string name="facebook_sharing_single">Compartiendo tu single #{time} en Facebook. Por favor, espera...</string>
+<string name="facebook_shared_single">Tu single #{time} ha sido publicado en tu muro de Facebook.</string>
+<string name="facebook_single_message">acaba de resolver un #{puzzle} en #{time}.\n#{scramble}</string>
+<string name="facebook_sharing_average">Compartiendo tu media de #{n} en #{time} en Facebook. Por favor, espera...</string>
+<string name="facebook_shared_average">Tu media de #{n} en #{time} ha sido publicada en tu muro de Facebook.</string>
+<string name="facebook_average_subject">acaba de resolver #{n} #{puzzle} en #{time} de media.</string>
+<string name="facebook_average_message">Tiempos individuales:\n</string>
+<string name="facebook_average_message_each_time">\n#{time} - #{scramble}</string>
+<string name="facebook_share">Compartir en Facebook</string>
+<string name="twitter_share">Compartir en Twitter</string>
+<string name="tuenti_share">Compartir en Tuenti</string>
+<string name="tuenti_sharing">Compartiendo</string>
+<string name="tuenti_sharing_single">Compartiendo tu single #{time} en Tuenti. Por favor, espera...</string>
+<string name="tuenti_error">Ups, ha habido un error. Por favor, inténtalo de nuevo.</string>
+<string name="tuenti_shared_single">Tu single #{time} ha sido publicado en tu tablón de Tuenti.</string>
+<string name="tuenti_single_message">acaba de resolver un #{puzzle} en #{time} - #{scramble}</string>
+<string name="tuenti_login">Inicio de sesión en Tuenti</string>
+<string name="tuenti_sharing_average">Compartiendo tu media de #{n} en #{time} en Tuenti. Por favor, espera...</string>
+<string name="tuenti_shared_average">Tu media de #{n} en #{time} ha sido publicada en tu tablón de Tuenti.</string>
+<string name="tuenti_average_message">Tiempos:</string>
+<string name="tuenti_average_subject">#{time} media de #{n} #{puzzle}</string>
+<string name="ok">Aceptar</string>
+<string name="cancel">Cancelar</string>
+<string name="tuenti_email">e-mail</string>
+<string name="tuenti_password">Contraseña</string>
+</resources>

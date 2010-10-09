@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<TextView android:id="@+id/scramble" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_gravity="center_vertical"
+		android:textSize="14sp"
+		android:text="Scramble here R U L' U L U2 R2 D2 L R2 B2 L B2 R D L' D2 R2 L' F'" />
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+		<TextView android:id="@+id/lcd" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_gravity="center_vertical"
+			android:textSize="50sp" android:gravity="center"
+			android:layout_weight="1" android:text="Time here 00:00.00" />
+		<Button android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_gravity="center_vertical"
+			android:text="POWER" android:textSize="9sp" android:onClick="onPowerButtonClicked" />
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical">
+			<TextView android:id="@+id/red_led" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="o" />
+			<TextView android:id="@+id/green_led" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="o" />
+		</LinearLayout>
+		<Button android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_gravity="center_vertical"
+			android:text="RESET" android:textSize="9sp" android:onClick="onResetButtonClicked" />
+	</LinearLayout>
+	<FrameLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+		<Button android:id="@+id/sensor" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" />
+		<SlidingDrawer android:id="@+id/times_drawer"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:content="@+id/times" android:handle="@+id/times_handle"
+			android:orientation="horizontal">
+			<ImageView android:id="@+id/times_handle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/drawer" />
+			<ListView android:id="@+id/times" android:layout_width="fill_parent"
+				android:layout_height="fill_parent" android:background="@drawable/times" android:cacheColorHint="#ffffffff"/>
+		</SlidingDrawer>
+	</FrameLayout>
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">StackMatTimer</string>
+<string name="delete">Delete</string>
+<string name="yes">Yes</string>
+<string name="no">No</string>
+<string name="really_delete">Are you sure you want to delete this time?</string>
+<string name="end_session">End current session</string>
+<string name="really_end_session">Are you sure you want to end current session?</string>
+<string name="facebook_error">Ooops, there has been an error. Please try again.</string>
+<string name="facebook_sharing">Sharing</string>
+<string name="facebook_sharing_single">Sharing your #{time} single in Facebook. Please wait...</string>
+<string name="facebook_shared_single">Your #{time} single has been published in your Facebook wall.</string>
+<string name="facebook_single_message">has just solved a #{puzzle} in #{time}.\n#{scramble}</string>
+<string name="facebook_sharing_average">Sharing your #{time} average of #{n} in Facebook. Please wait...</string>
+<string name="facebook_shared_average">Your #{time} average of #{n} has been published in your Facebook wall.</string>
+<string name="facebook_average_subject">has just solved #{n} #{puzzle} in #{time} average.</string>
+<string name="facebook_average_message">Individual times:\n</string>
+<string name="facebook_average_message_each_time">\n#{time} - #{scramble}</string>
+<string name="facebook_share">Share in Facebook</string>
+<string name="twitter_share">Share in Twitter</string>
+<string name="tuenti_share">Share in Tuenti</string>
+<string name="tuenti_sharing">Sharing</string>
+<string name="tuenti_sharing_single">Sharing your #{time} single in Tuenti. Please wait...</string>
+<string name="tuenti_error">Ooops, there has been an error. Please try again.</string>
+<string name="tuenti_shared_single">Your #{time} single has been published on your Tuenti board.</string>
+<string name="tuenti_single_message">has just solved a #{puzzle} in #{time} - #{scramble}</string>
+<string name="tuenti_login">Tuenti login</string>
+<string name="tuenti_sharing_average">Sharing your #{time} average of #{n} in Tuenti. Please wait...</string>
+<string name="tuenti_shared_average">Your #{time} average of #{n} has been published in your Tuenti wall.</string>
+<string name="tuenti_average_message">Times:</string>
+<string name="tuenti_average_subject">#{time} average of #{n} #{puzzle}</string>
+<string name="ok">OK</string>
+<string name="cancel">Cancel</string>
+<string name="tuenti_email">e-mail</string>
+<string name="tuenti_password">Password</string>
+</resources>

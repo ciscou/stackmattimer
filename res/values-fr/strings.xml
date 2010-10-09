@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">StackMatTimer</string>
+<string name="delete">Effacer</string>
+<string name="yes">Oui</string>
+<string name="no">Non</string>
+<string name="really_delete">Es-tu sûr de vouloir effacer ce temps ?</string>
+<string name="end_session">Terminer la session courante</string>
+<string name="really_end_session">Es-tu sûr de vouloir terminer la session courante ?</string>
+<string name="facebook_error">Oups, il y a eu une erreur. S\'il te plaît essaie de nouveau.</string>
+<string name="facebook_sharing">Partageant</string>
+<string name="facebook_sharing_single">Partageant ton #{time} single sur Facebook. S\'il te plaît patiente...</string>
+<string name="facebook_shared_single">Ton #{time} single a été publié sur ton mur Facebook.</string>
+<string name="facebook_single_message">viens de résourdre un #{puzzle} dans #{time}.\n#{scramble}</string>
+<string name="facebook_sharing_average">Partagant ton #{time} moyenne de #{n} sur Facebook. S\'il te plaît patiente...</string>
+<string name="facebook_shared_average">Ton #{time} moyenne de #{n} a été publié sur ton mur Facebook.</string>
+<string name="facebook_average_subject">viens de résourdre #{n} #{puzzle} dans #{time} moyenne.</string>
+<string name="facebook_average_message">Temps individuels:\n</string>
+<string name="facebook_average_message_each_time">\n#{time} - #{scramble}</string>
+<string name="facebook_share">Partager sur Facebook</string>
+<string name="twitter_share">Partager sur Twitter</string>
+<string name="tuenti_share">Partager sur Tuenti</string>
+<string name="tuenti_sharing">Partageant</string>
+<string name="tuenti_sharing_single">Partageant ton #{time} single sur Tuenti. S\'il te plait patiente...</string>
+<string name="tuenti_error">Oups, il y a eu une erreur. S\'il te plaît essaie de nouveau.</string>
+<string name="tuenti_shared_single">Ton #{time} single a été publié sur ton panneau Tuenti.</string>
+<string name="tuenti_single_message">viens de résoudre un #{puzzle} dans #{time} - #{scramble}</string>
+<string name="tuenti_login">Se connecter sur Tuenti</string>
+<string name="tuenti_sharing_average">Partageant ton #{time} moyenne de #{n} sur Tuenti. S\'il te plaît patiente...</string>
+<string name="tuenti_shared_average">Ton #{time} moyenne de #{n} a été publié sur ton panneau Tuenti.</string>
+<string name="tuenti_average_message">Temps:</string>
+<string name="tuenti_average_subject">#{time} moyenne de #{n} #{puzzle}</string>
+<string name="ok">OK</string>
+
+
+<string name="cancel">Annuler</string>
+<string name="tuenti_email">e-mail</string>
+<string name="tuenti_password">Mot de passe</string>
+</resources>

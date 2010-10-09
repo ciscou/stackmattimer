@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/tuenti_login_dialog" android:orientation="vertical"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:padding="10dp">
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="@string/tuenti_email" />
+	<EditText android:id="@+id/email" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="@string/tuenti_password" />
+	<EditText android:id="@+id/password" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:password="true" />
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+		<Button android:id="@+id/ok" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/ok" />
+		<Button android:id="@+id/cancel" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/cancel" />
+	</LinearLayout>
+</LinearLayout>
