@@ -61,8 +61,8 @@ public class StackMatTime {
 		return mm + ":" + ss + "." + zz + (isPlus2() ? " +2" : "");
 	}
 	
-	public static final long DNF = -1;
-	public static final long NA = DNF - 1;
+	public static final long DNF = Long.MAX_VALUE;
+	public static final long NA = Long.MAX_VALUE - 1;
 
 	private String scramble;
 	private long time;

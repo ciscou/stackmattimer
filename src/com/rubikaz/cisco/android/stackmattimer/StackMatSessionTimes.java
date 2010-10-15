@@ -14,31 +14,31 @@ public class StackMatSessionTimes {
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("time", time.toString());
 		hm.put("scramble", time.getScramble());
-		hms.add(2, hm);
+		hms.add(5, hm);
 	}
 
 	public void recalculateTime(int idx) {
-		StackMatTime time = times.get(times.size() - idx - 1 + 2);
+		StackMatTime time = times.get(times.size() - idx - 1 + 5);
 		HashMap<String, String> hm = hms.get(idx);
 		hm.put("time", time.toString());
 		hm.put("scramble", time.getScramble());
 	}
 
 	public void deleteTime(int idx) {
-		times.remove(times.size() - idx - 1 + 2);
+		times.remove(times.size() - idx - 1 + 5);
 		hms.remove(idx);
 	}
 
 	public void calculateAvgs() {
-		// avg = avg(times.size());
-		avg5 = avg(5);
-		avg12 = avg(12);
+		avg = avg(times.size());
+		// avg5 = avg(5);
+		// avg12 = avg(12);
 		ravg5 = ravg(5);
 		ravg12 = ravg(12);
-		if (avg5 < bavg5)
-			bavg5 = avg5;
-		if (avg12 < bavg12)
-			bavg12 = avg12;
+		//if (avg5 < bavg5)
+		//	bavg5 = avg5;
+		//if (avg12 < bavg12)
+		//	bavg12 = avg12;
 		if (ravg5 < bravg5)
 			bravg5 = ravg5;
 		if (ravg12 < bravg12)
@@ -46,15 +46,18 @@ public class StackMatSessionTimes {
 
 		hms.get(0).put("time", new StackMatTime(ravg5).toString());
 		hms.get(1).put("time", new StackMatTime(ravg12).toString());
+		hms.get(2).put("time", new StackMatTime(bravg5).toString());
+		hms.get(3).put("time", new StackMatTime(bravg12).toString());
+		hms.get(4).put("time", new StackMatTime(avg).toString());
 	}
 
-	public long getAvg5() {
-		return avg5;
-	}
+	// public long getAvg5() {
+	//	return avg5;
+	// }
 
-	public long getAvg12() {
-		return avg12;
-	}
+	//public long getAvg12() {
+	//	return avg12;
+	//}
 
 	public long getRAvg5() {
 		return ravg5;
@@ -67,23 +70,39 @@ public class StackMatSessionTimes {
 	public ArrayList<HashMap<String, String>> getTimes() {
 		if (hms == null)
 			hms = new ArrayList<HashMap<String, String>>();
+		
+		avg = StackMatTime.NA;
+		ravg5 = StackMatTime.NA;
+		ravg12 = StackMatTime.NA;
+		bravg5 = StackMatTime.NA;
+		bravg12 = StackMatTime.NA;
+		
 		HashMap<String, String> hm1 = new HashMap<String, String>();
 		hm1.put("time", new StackMatTime(ravg5).toString());
-		hm1.put("scramble", "ravg5");
+		hm1.put("scramble", "Rolling average 5");
 		hms.add(hm1);
 		HashMap<String, String> hm2 = new HashMap<String, String>();
 		hm2.put("time", new StackMatTime(ravg12).toString());
-		hm2.put("scramble", "ravg12");
+		hm2.put("scramble", "Rolling average 12");
 		hms.add(hm2);
+		HashMap<String, String> hm3 = new HashMap<String, String>();
+		hm3.put("time", new StackMatTime(bravg5).toString());
+		hm3.put("scramble", "Best rolling average 5");
+		hms.add(hm3);
+		HashMap<String, String> hm4 = new HashMap<String, String>();
+		hm4.put("time", new StackMatTime(bravg12).toString());
+		hm4.put("scramble", "Best rolling average 12");
+		hms.add(hm4);
+		HashMap<String, String> hm5 = new HashMap<String, String>();
+		hm5.put("time", new StackMatTime(avg).toString());
+		hm5.put("scramble", "Session average");
+		hms.add(hm5);
+		
 		return hms;
 	}
 
 	public StackMatTime getTime(int idx) {
-		StackMatTime time = times.get(times.size() - idx - 1 + 2); // skip the
-																	// first two
-																	// times,
-																	// ie, avg
-																	// times
+		StackMatTime time = times.get(times.size() - idx - 1 + 5);
 		return time;
 	}
 
@@ -136,13 +155,13 @@ public class StackMatSessionTimes {
 	private ArrayList<StackMatTime> times = null;
 	// private Date date;
 
-	// private long avg;
-	private long avg5;
-	private long avg12;
+	private long avg;
+	// private long avg5;
+	// private long avg12;
 	private long ravg5;
 	private long ravg12;
-	private long bavg5;
-	private long bavg12;
+	// private long bavg5;
+	// private long bavg12;
 	private long bravg5;
 	private long bravg12;
 

@@ -22,9 +22,6 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 import com.rubikaz.cisco.android.stackmattimer.scramble.ScrambleGenerator;
-import com.rubikaz.cisco.android.stackmattimer.social.FacebookManager;
-import com.rubikaz.cisco.android.stackmattimer.social.TuentiManager;
-import com.rubikaz.cisco.android.stackmattimer.social.TwitterManager;
 import com.rubikaz.cisco.android.stackmattimer.state.StackMatTimerState;
 import com.rubikaz.cisco.android.stackmattimer.state.StackMatTimerStateOff;
 
@@ -263,7 +260,7 @@ public class StackMatTimer extends Activity {
 
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) cmi;
 
-		if (info.position > 1) {
+		if (info.position > 4) {
 			StackMatTime time = session_times.getTime(info.position);
 			menu.add(Menu.NONE + 1, MENU_PLUS_2, Menu.FIRST, "+2").setChecked(
 					time.isPlus2());
@@ -302,7 +299,7 @@ public class StackMatTimer extends Activity {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
 				.getMenuInfo();
 
-		if (info.position > 1) {
+		if (info.position > 4) {
 			StackMatTime time = session_times.getTime(info.position);
 			final SimpleAdapter sa = (SimpleAdapter) times.getAdapter();
 
@@ -322,13 +319,13 @@ public class StackMatTimer extends Activity {
 				sa.notifyDataSetChanged();
 				break;
 			case MENU_SHARE_FB:
-				FacebookManager.shareSingle(this, time);
+				// FacebookManager.shareSingle(this, time);
 				break;
 			case MENU_SHARE_TW:
-				TwitterManager.shareSingle(this, time);
+				// TwitterManager.shareSingle(this, time);
 				break;
 			case MENU_SHARE_TU:
-				TuentiManager.shareSingle(this, time);
+				// TuentiManager.shareSingle(this, time);
 				break;
 			case MENU_DELETE:
 				final int pos = info.position;
@@ -348,22 +345,30 @@ public class StackMatTimer extends Activity {
 				break;
 			}
 		} else {
+			/*
 			int ntimes = 0;
 			if (info.position == 0)
 				ntimes = 5;
 			else if (info.position == 1)
 				ntimes = 12;
+			if (info.position == 0)
+				ntimes = 5;
+			else if (info.position == 1)
+				ntimes = 12;
+			if (info.position == 0)
+				ntimes = session_times.getNTimes();
 			switch (item.getItemId()) {
 			case MENU_SHARE_AVG_FB:
-				FacebookManager.shareAverage(this, session_times, ntimes);
+				// FacebookManager.shareAverage(this, session_times, ntimes);
 				break;
 			case MENU_SHARE_AVG_TW:
-				TwitterManager.shareAverage(this, session_times, ntimes);
+				// TwitterManager.shareAverage(this, session_times, ntimes);
 				break;
 			case MENU_SHARE_AVG_TU:
-				TuentiManager.shareAverage(this, session_times, ntimes);
+				// TuentiManager.shareAverage(this, session_times, ntimes);
 				break;
 			}
+			*/
 		}
 
 		return true;
