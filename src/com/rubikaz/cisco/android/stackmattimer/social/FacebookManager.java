@@ -154,12 +154,19 @@ public class FacebookManager {
 	}
 
 	public static void shareAverage(final StackMatTimer timer,
-			final StackMatSessionTimes times, final int ntimes) {
+			final StackMatSessionTimes times, final int ntimes, final int offset, final boolean rolling, final boolean best) {
 		fb = getFacebookInstance(timer);
 
-		final StackMatTime blablabla = new StackMatTime(ntimes == 12 ? times
-				.getRAvg12() : times.getRAvg5());
-
+		final StackMatTime blablabla;
+		if(best)
+			blablabla = new StackMatTime(ntimes == 12 ? times
+				.getBRAvg12() : times.getBRAvg5());
+		else
+			if(rolling)
+				blablabla = new StackMatTime(ntimes == 12 ? times
+					.getRAvg12() : times.getRAvg5());
+			else
+				blablabla = new StackMatTime(times.getAvg());
 		final Runnable errorToastRunnable = new Runnable() {
 			@Override
 			public void run() {
@@ -187,10 +194,13 @@ public class FacebookManager {
 			final Bundle parameters = new Bundle();
 			parameters.putString("access_token", fb.getAccessToken());
 			String subject = timer.getString(R.string.facebook_average_subject).replaceAll("\\#\\{time\\}", blablabla.toString()).replaceAll("\\#\\{n\\}", String.valueOf(ntimes)).replaceAll("\\#\\{puzzle\\}", timer.getPuzzleType());
+			Log.d("XXX", "sharing in fb, " + subject);
 			String message = timer.getString(R.string.facebook_average_message);
-			for (int i = ntimes + 1; i >= 2; i--) {
+			Log.d("XXX", "sharing in fb, ntimes=" + String.valueOf(ntimes) + ", offset=" + String.valueOf(offset));
+			for (int i = ntimes + 5 + offset - 1; i >= 5 + offset; i--) {
 				StackMatTime time = times.getTime(i);
 				message += timer.getString(R.string.facebook_average_message_each_time).replaceAll("\\#\\{time\\}", time.toString()).replaceAll("\\#\\{scramble\\}", time.getScramble());
+				Log.d("XXX", "sharing in fb, " + message);
 			}
 			parameters.putString("subject", subject);
 			parameters.putString("message", message);
@@ -273,7 +283,7 @@ public class FacebookManager {
 						editor.putString("access_token", fb.getAccessToken());
 						editor.putLong("expires", fb.getAccessExpires());
 						editor.commit();
-						shareAverage(timer, times, ntimes);
+						shareAverage(timer, times, ntimes, offset, rolling, best);
 					} else {
 						timer.runOnUiThread(errorToastRunnable);
 					}

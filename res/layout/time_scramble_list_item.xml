@@ -3,11 +3,11 @@
 	android:layout_width="fill_parent" android:layout_height="wrap_content"
 	android:orientation="vertical">
 
-	<TextView android:id="@+id/time" android:textSize="12sp"
+	<TextView android:id="@+id/time" android:textSize="16sp"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:textColor="@color/android:primary_text_light" />
 
-	<TextView android:id="@+id/scramble" android:textSize="9sp"
+	<TextView android:id="@+id/scramble" android:textSize="12sp"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:textColor="@color/android:primary_text_light" />
 </LinearLayout>

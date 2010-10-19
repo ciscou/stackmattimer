@@ -170,7 +170,7 @@ public class TwitterManager {
 
 	// FIXME arreglar lo mismo que en el caso de single...
 	public static void shareAverage(final StackMatTimer timer,
-			final StackMatSessionTimes times, final int ntimes) {
+			final StackMatSessionTimes times, final int ntimes, final int offset, final boolean rolling, final boolean best) {
 		SharedPreferences savedSession = timer.getSharedPreferences("twitter",
 				Context.MODE_PRIVATE);
 		final String token = savedSession.getString("token", null);
@@ -235,7 +235,7 @@ public class TwitterManager {
 											accessToken.getTokenSecret());
 									editor.commit();
 									TwitterManager.shareAverage(timer, times,
-											ntimes);
+											ntimes, offset, rolling, best);
 								} catch (TwitterException e) {
 									// TODO Auto-generated catch block
 									Log.d(TwitterManager.class.getSimpleName(),
@@ -254,8 +254,17 @@ public class TwitterManager {
 					});
 			alert.show();
 		} else {
-			final StackMatTime blablabla = new StackMatTime(
-					ntimes == 12 ? times.getRAvg12() : times.getRAvg5());
+			final StackMatTime blablabla;
+			if(best)
+				blablabla = new StackMatTime(ntimes == 12 ? times
+					.getBRAvg12() : times.getBRAvg5());
+			else
+				if(rolling)
+					blablabla = new StackMatTime(ntimes == 12 ? times
+						.getRAvg12() : times.getRAvg5());
+				else
+					blablabla = new StackMatTime(times.getAvg());
+			
 			final ProgressDialog pd = ProgressDialog.show(timer, "Sharing",
 					"Sharing " + blablabla.toString() + " average of "
 							+ String.valueOf(ntimes)
@@ -275,10 +284,13 @@ public class TwitterManager {
 					if (accessToken != null) {
 						try {
 							String subject = blablabla.toString() + " avg " + String.valueOf(ntimes) + " " + timer.getPuzzleType();
+							Log.d("XXX", "sharing in tw, " + subject);
 							String message = "Times:";
-							for (int i = ntimes + 1; i >= 2; i--) {
+							Log.d("XXX", "sharing in tw, ntimes=" + String.valueOf(ntimes) + ", offset=" + String.valueOf(offset));
+							for (int i = ntimes + 5 + offset - 1; i >= 5 + offset; i--) {
 								StackMatTime time = times.getTime(i);
 								message += " " + time.toString();
+								Log.d("XXX", "sharing in tw, " + message);
 							}
 							Status status = twitter.updateStatus(subject
 									+ " - " + message);

@@ -22,6 +22,9 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 import com.rubikaz.cisco.android.stackmattimer.scramble.ScrambleGenerator;
+import com.rubikaz.cisco.android.stackmattimer.social.FacebookManager;
+import com.rubikaz.cisco.android.stackmattimer.social.TuentiManager;
+import com.rubikaz.cisco.android.stackmattimer.social.TwitterManager;
 import com.rubikaz.cisco.android.stackmattimer.state.StackMatTimerState;
 import com.rubikaz.cisco.android.stackmattimer.state.StackMatTimerStateOff;
 
@@ -167,6 +170,10 @@ public class StackMatTimer extends Activity {
 		times.setAdapter(new SimpleAdapter(this, session_times.getTimes(),
 				R.layout.time_scramble_list_item, new String[] { "time",
 						"scramble" }, new int[] { R.id.time, R.id.scramble }));
+		/*for(int i=0; i<15; i++)
+			session_times.add(new StackMatTime("test", (i+1) * 1000));
+		session_times.calculateAvgs();
+		((SimpleAdapter)times.getAdapter()).notifyDataSetChanged();*/
 	}
 
 	public void finishCurrentSession() {
@@ -198,6 +205,26 @@ public class StackMatTimer extends Activity {
 		};
 		runOnUiThread(refreshScramble);
 	}
+	
+	public void hideScramble() {
+		Runnable hideScramble = new Runnable() {
+			@Override
+			public void run() {
+				scramble.setText("");
+			}
+		};
+		runOnUiThread(hideScramble);
+	}
+	
+	public void showScramble() {
+		Runnable showScramble = new Runnable() {
+			@Override
+			public void run() {
+				scramble.setText(scrambleText);
+			}
+		};
+		runOnUiThread(showScramble);
+	}
 
 	public void endSession() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -205,13 +232,13 @@ public class StackMatTimer extends Activity {
 		alert.setTitle(R.string.end_session);
 		alert.setMessage(R.string.really_end_session);
 		alert.setPositiveButton(R.string.yes,
-			new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					puzzle_type = next_puzzle_type;
-					setState(new StackMatTimerStateOff(StackMatTimer.this));
-				}
-			});
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						puzzle_type = next_puzzle_type;
+						setState(new StackMatTimerStateOff(StackMatTimer.this));
+					}
+				});
 		alert.setNegativeButton(R.string.no,
 				new DialogInterface.OnClickListener() {
 					@Override
@@ -268,28 +295,39 @@ public class StackMatTimer extends Activity {
 					.setChecked(time.isDNF());
 			menu.add(Menu.NONE, MENU_SHARE_FB, Menu.FIRST + 2,
 					R.string.facebook_share);
-			menu.add(Menu.NONE, MENU_SHARE_TW, Menu.FIRST + 3,
-					R.string.twitter_share);
-			menu.add(Menu.NONE, MENU_SHARE_TU, Menu.FIRST + 4,
-					R.string.tuenti_share);
+			//menu.add(Menu.NONE, MENU_SHARE_TW, Menu.FIRST + 3,
+			//		R.string.twitter_share);
+			//menu.add(Menu.NONE, MENU_SHARE_TU, Menu.FIRST + 4,
+			//		R.string.tuenti_share);
 			menu.add(Menu.NONE, MENU_DELETE, Menu.FIRST + 5, R.string.delete);
 
 			menu.setHeaderTitle(time.toString());
 			menu.setGroupCheckable(Menu.NONE + 1, true, false);
 		} else {
 			int ntimes = 0;
-			if (info.position == 0)
+			// int offset = 0;
+			
+			if (info.position == 0) {
+				ntimes = session_times.getNTimes();
+			} else if (info.position == 1) {
 				ntimes = 5;
-			else if (info.position == 1)
+			} else if (info.position == 2) {
 				ntimes = 12;
-
+			} else if (info.position == 3) {
+				ntimes = 5;
+				// offset = session_times.getBRAvg5Offset();
+			} else if (info.position == 4) {
+				ntimes = 12;
+				// offset = session_times.getBRAvg12Offset();
+			}
+			
 			if (session_times.getNTimes() >= ntimes) {
 				menu.add(Menu.NONE, MENU_SHARE_AVG_FB, Menu.FIRST + 0,
 						R.string.facebook_share);
-				menu.add(Menu.NONE, MENU_SHARE_AVG_TW, Menu.FIRST + 1,
-						R.string.twitter_share);
-				menu.add(Menu.NONE, MENU_SHARE_AVG_TU, Menu.FIRST + 2,
-						R.string.tuenti_share);
+				//menu.add(Menu.NONE, MENU_SHARE_AVG_TW, Menu.FIRST + 1,
+				//		R.string.twitter_share);
+				//menu.add(Menu.NONE, MENU_SHARE_AVG_TU, Menu.FIRST + 2,
+				//		R.string.tuenti_share);
 			}
 		}
 	}
@@ -319,13 +357,13 @@ public class StackMatTimer extends Activity {
 				sa.notifyDataSetChanged();
 				break;
 			case MENU_SHARE_FB:
-				// FacebookManager.shareSingle(this, time);
+				FacebookManager.shareSingle(this, time);
 				break;
 			case MENU_SHARE_TW:
-				// TwitterManager.shareSingle(this, time);
+				TwitterManager.shareSingle(this, time);
 				break;
 			case MENU_SHARE_TU:
-				// TuentiManager.shareSingle(this, time);
+				TuentiManager.shareSingle(this, time);
 				break;
 			case MENU_DELETE:
 				final int pos = info.position;
@@ -345,30 +383,39 @@ public class StackMatTimer extends Activity {
 				break;
 			}
 		} else {
-			/*
 			int ntimes = 0;
-			if (info.position == 0)
-				ntimes = 5;
-			else if (info.position == 1)
-				ntimes = 12;
-			if (info.position == 0)
-				ntimes = 5;
-			else if (info.position == 1)
-				ntimes = 12;
-			if (info.position == 0)
+			int offset = 0;
+			boolean rolling = true;
+			boolean best = false;
+			
+			if (info.position == 0) {
 				ntimes = session_times.getNTimes();
+				rolling = false;
+			} else if (info.position == 1) {
+				ntimes = 5;
+			} else if (info.position == 2) {
+				ntimes = 12;
+			} else if (info.position == 3) {
+				ntimes = 5;
+				offset = session_times.getBRAvg5Offset();
+				best = true;
+			} else if (info.position == 4) {
+				ntimes = 12;
+				offset = session_times.getBRAvg12Offset();
+				best = true;
+			}
+			
 			switch (item.getItemId()) {
 			case MENU_SHARE_AVG_FB:
-				// FacebookManager.shareAverage(this, session_times, ntimes);
+				FacebookManager.shareAverage(this, session_times, ntimes, offset, rolling, best);
 				break;
 			case MENU_SHARE_AVG_TW:
-				// TwitterManager.shareAverage(this, session_times, ntimes);
+				TwitterManager.shareAverage(this, session_times, ntimes, offset, rolling, best);
 				break;
 			case MENU_SHARE_AVG_TU:
-				// TuentiManager.shareAverage(this, session_times, ntimes);
+				TuentiManager.shareAverage(this, session_times, ntimes, offset, rolling, best);
 				break;
 			}
-			*/
 		}
 
 		return true;
@@ -392,7 +439,7 @@ public class StackMatTimer extends Activity {
 
 	private StackMatSessionTimes session_times;
 
-	private final String PUZZLE_TYPES[] = new String[] { "3x3x3", "2x2x2" };
+	private final String PUZZLE_TYPES[] = new String[] { "2x2x2", "3x3x3", "4x4x4", "5x5x5", "6x6x6", "7x7x7" };
 	private String puzzle_type = "3x3x3";
 	private String next_puzzle_type = puzzle_type;
 

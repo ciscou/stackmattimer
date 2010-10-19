@@ -12,6 +12,7 @@ public class StackMatTimerStateRunning extends StackMatTimerState {
 		stackMatTimer.setRedLed(false);
 		elapsed_time = 0;
 		stackMatTimer.setLcd(elapsed_time);
+		stackMatTimer.hideScramble();
 		
 		startTime = SystemClock.uptimeMillis();
 	}
@@ -19,6 +20,7 @@ public class StackMatTimerStateRunning extends StackMatTimerState {
 	@Override
 	public void onSensorDown() {
 		elapsed_time = SystemClock.uptimeMillis() - startTime;
+		stackMatTimer.showScramble();
 		stackMatTimer.setState(new StackMatTimerStateIdle(stackMatTimer, elapsed_time));
 	}
 

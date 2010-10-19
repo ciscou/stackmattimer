@@ -157,7 +157,7 @@ public class TuentiManager {
 	}
 
 	public static void shareAverage(final StackMatTimer timer,
-			final StackMatSessionTimes times, final int ntimes) {
+			final StackMatSessionTimes times, final int ntimes, final int offset, final boolean rolling, final boolean best) {
 		SharedPreferences savedSession = timer.getSharedPreferences("tuenti",
 				Context.MODE_PRIVATE);
 		int user_id = savedSession.getInt("user_id", -1);
@@ -165,9 +165,17 @@ public class TuentiManager {
 		final AsynchronousTuenti tuenti = new AsynchronousTuenti(user_id,
 				session_id);
 
-		final StackMatTime blablabla = new StackMatTime(ntimes == 12 ? times
-				.getRAvg12() : times.getRAvg5());
-
+		final StackMatTime blablabla;
+		if(best)
+			blablabla = new StackMatTime(ntimes == 12 ? times
+				.getBRAvg12() : times.getBRAvg5());
+		else
+			if(rolling)
+				blablabla = new StackMatTime(ntimes == 12 ? times
+					.getRAvg12() : times.getRAvg5());
+			else
+				blablabla = new StackMatTime(times.getAvg());
+		
 		final ProgressDialog pd = ProgressDialog.show(timer, timer.getString(R.string.tuenti_sharing),
 				timer.getString(R.string.tuenti_sharing_average).replaceAll("\\#\\{time\\}", blablabla.toString()).replaceAll("\\#\\{n\\}", String.valueOf(ntimes)), true);
 
@@ -216,7 +224,7 @@ public class TuentiManager {
 				Log.d(TuentiManager.class.getSimpleName(), "Posting...");
 				String subject = timer.getString(R.string.tuenti_average_subject).replaceAll("\\#\\{time\\}", blablabla.toString()).replaceAll("\\#\\{n\\}", String.valueOf(ntimes)).replaceAll("\\#\\{puzzle\\}", timer.getPuzzleType());
 				String message = timer.getString(R.string.tuenti_average_message);
-				for (int i = ntimes + 1; i >= 2; i--) {
+				for (int i = ntimes + 5 + offset - 1; i >= 5 + offset; i--) {
 					StackMatTime time = times.getTime(i);
 					message += " " + time.toString();
 				}
